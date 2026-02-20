@@ -1,3 +1,42 @@
 public class passenger {
-    
-}
+   
+    private int destination;
+    private boolean direction; //true for going right, false for left
+    private int startLocation;
+    private int idNum;
+    private int 
+
+    //constructors
+    public passenger(int myDestination, int myStart){
+        destination = myDestination;
+        startLocation = myStart;
+   
+        if(destination > startLocation){
+            direction = true;
+        } else{
+            direction = false;
+        }
+    }
+ 
+ 
+    //methods
+    public int getDestination(){
+        return destination;
+    }
+ 
+ 
+    public boolean getDirection(){
+        return direction;
+    }
+ 
+ 
+    public int getStart(){
+        return startLocation;
+    }
+ 
+ 
+    public String toString(){
+        return super.toString() + " Start: " + startLocation + " Destination: " + destination + " Going right? " + direction;
+    }
+ }
+
