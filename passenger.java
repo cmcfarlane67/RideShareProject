@@ -1,19 +1,19 @@
-public class passenger {
+public class Passenger {
    
     private int destination;
     private boolean direction; //true for going right, false for left
     private int startLocation;
     private int idNum;
-    private int 
+    
 
     //constructors
-    public passenger(int myDestination, int myStart){
+    public Passenger(int myDestination, int myStart){
         destination = myDestination;
         startLocation = myStart;
    
         if(destination > startLocation){
             direction = true;
-        } else{
+        } else{ 
             direction = false;
         }
     }
