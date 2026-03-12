@@ -26,7 +26,10 @@ public class Passenger {
     public int getDestination(){
         return destination;
     }
- 
+    
+    public int getID(){
+    return idNum;
+    }   
  
     public boolean getDirection(){
         return direction;
