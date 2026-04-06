@@ -1,0 +1,5 @@
+Playing around with this simulation really made me think about how complicated even a simple transportation system can be. At first, with only 20 cars for 50 passengers, a lot of people just never made it to their destinations. Cars would pass by full, go the wrong direction, or reach their own destination before dropping everyone off. It felt a bit chaotic, and I could see why having too few cars makes it really hard for everyone to get where they need to go.
+
+When I doubled the number of cars to 40, things started to work a lot better. More passengers were able to hop on cars going in the right direction, and fewer got left behind. It was interesting to see how just adding more cars changed the whole system even though capacity and direction still mattered.
+
+Overall, this project made me think about real-life transportation challenges in a new way. It is not just about having enough cars or buses. It is about timing, direction, and how people and vehicles interact. Seeing it play out in the simulation gave me a better sense of how everything has to line up for a system to actually work.

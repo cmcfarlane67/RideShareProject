@@ -2,89 +2,66 @@ import java.util.ArrayList;
 
 public class Car {
     private int location;
-    private ArrayList<Passenger> people;
-    private int initialStation;
     private int destination;
-    private boolean forward;
-    private boolean moveable;
-    private int distanceTraveled;
+    private ArrayList<Passenger> riders;
 
-    public Car(int startLocation, int destination) {
-        this.initialStation = startLocation;
+    public Car(int location, int destination) {
+        this.location = location;
         this.destination = destination;
-        this.location = startLocation;
-        this.people = new ArrayList<>();
-        this.forward = destination > startLocation;
-        this.moveable = true;
-        this.distanceTraveled = 0;
-    }
-
-    public Car(int startLocation) {
-        this(startLocation, startLocation);
-    }
-
-    public void pickup(Passenger p) {
-        if (people.size() < 4 && p.getLocation() == location) {
-            people.add(p);
-        }
-    }
-
-    public void dropoffAtCurrentLocation() {
-        ArrayList<Passenger> dropped = new ArrayList<>();
-        for (Passenger p : people) {
-            if (p.getDestination() == location) {
-                dropped.add(p);
-            }
-        }
-        people.removeAll(dropped);
-    }
-
-    public void move() {
-        if (!moveable) return;
-
-        if (location < destination) {
-            location++;
-            forward = true;
-        } else if (location > destination) {
-            location--;
-            forward = false;
-        }
-        distanceTraveled++;
-
-        dropoffAtCurrentLocation();
-    }
-
-    public ArrayList<Passenger> getPeople() {
-        return people;
+        riders = new ArrayList<>();
     }
 
     public int getLocation() {
         return location;
     }
 
-    public boolean getDirection() {
-        return forward;
-    }
-
-    public boolean isMoveable() {
-        return moveable;
-    }
-
-    public void setMoveable(boolean status) {
-        moveable = status;
-    }
-
-    public int getDistanceTraveled() {
-        return distanceTraveled;
-    }
-
     public int getDestination() {
         return destination;
     }
 
+    public int getDirection() {
+        if (destination > location) return 1;
+        else return -1;
+    }
+
+    public boolean isFinished() {
+        return location == destination;
+    }
+
+    public boolean hasSpace() {
+        return riders.size() < 3;
+    }
+
+    public boolean canTakePassenger(Passenger p) {
+        return hasSpace() && getDirection() == p.getDirection(location);
+    }
+
+    public void addPassenger(Passenger p) {
+        if (hasSpace()) {
+            riders.add(p);
+            p.setInCar(true);
+        }
+    }
+
+    public void move() {
+        if (!isFinished()) location += getDirection();
+    }
+
+    public int unloadPassengers() {
+        int count = 0;
+        for (Passenger p : riders) {
+            if (location == p.getDestination()) {
+                p.complete();
+                count++;
+            } else {
+                p.setInCar(false);
+            }
+        }
+        riders.clear();
+        return count;
+    }
+
     public String toString() {
-        return "Initial station: " + initialStation + 
-               " Location: " + location + 
-               " Number of people: " + people.size();
+        return "Car at " + location + " going to " + destination + " with " + riders.size() + " passengers";
     }
 }

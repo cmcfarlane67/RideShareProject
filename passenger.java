@@ -1,54 +1,41 @@
-import java.util.ArrayList;
-
 public class Passenger {
     private int destination;
-    private boolean direction;
-    private int startLocation;
-    private int originalDestination;
-    private int location;
-    private int idNum;
-    private static int nextID = 1;
+    private boolean completed;
+    private boolean inCar;
 
-    public Passenger(int myDestination, int myStart) {
-        startLocation = myStart;
-        destination = myDestination;
-        originalDestination = myDestination;
-        location = myStart;
-        direction = destination > startLocation;
-        idNum = nextID++;
-    }
-
-    public void setLocation(int location) {
-        this.location = location;
+    public Passenger(int destination) {
+        this.destination = destination;
+        completed = false;
+        inCar = false;
     }
 
     public int getDestination() {
         return destination;
     }
 
-    public int getOriginalDestination() {
-        return originalDestination;
+    public boolean isCompleted() {
+        return completed;
     }
 
-    public int getID() {
-        return idNum;
+    public boolean isInCar() {
+        return inCar;
     }
 
-    public int getLocation() {
-        return location;
+    public void setInCar(boolean value) {
+        inCar = value;
     }
 
-    public boolean getDirection() {
-        return direction;
+    public void complete() {
+        completed = true;
+        inCar = false;
     }
 
-    public int getStart() {
-        return startLocation;
+    public int getDirection(int currentLocation) {
+        if (destination > currentLocation) return 1;
+        else return -1;
     }
 
     public String toString() {
-        return "ID: " + idNum + " Start: " + startLocation + " Dest: " + destination 
-               + " OrigDest: " + originalDestination + " Loc: " + location 
-               + " Going right? " + direction;
+        return "Passenger to " + destination;
     }
 }

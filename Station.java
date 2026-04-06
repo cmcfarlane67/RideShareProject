@@ -1,54 +1,31 @@
 import java.util.ArrayList;
 
 public class Station {
-    private int stationNumber;
-    private ArrayList<Passenger> waitingLeft;
-    private ArrayList<Passenger> waitingRight;
-    private ArrayList<Passenger> done;
+    private int id;
+    private ArrayList<Passenger> waiting;
 
-    public Station(int myStationNumber) {
-        stationNumber = myStationNumber;
-        waitingLeft = new ArrayList<>();
-        waitingRight = new ArrayList<>();
-        done = new ArrayList<>();
+    public Station(int id) {
+        this.id = id;
+        waiting = new ArrayList<>();
     }
 
-    public void addPerson(Passenger p) {
-        if (p.getDestination() == stationNumber) {
-            done.add(p);
-        } else if (p.getDirection()) {
-            waitingRight.add(p);
-        } else {
-            waitingLeft.add(p);
-        }
+    public int getId() {
+        return id;
     }
 
-    public Passenger nextLeft() {
-        if (!waitingLeft.isEmpty()) {
-            return waitingLeft.remove(0);
-        }
-        return null;
+    public ArrayList<Passenger> getWaitingPassengers() {
+        return waiting;
     }
 
-    public Passenger nextRight() {
-        if (!waitingRight.isEmpty()) {
-            return waitingRight.remove(0);
-        }
-        return null;
+    public void addPassenger(Passenger p) {
+        waiting.add(p);
     }
 
-    public int doneCount() {
-        return done.size();
+    public void removePassenger(Passenger p) {
+        waiting.remove(p);
     }
 
     public String toString() {
-        return "Station: " + stationNumber + "\n" +
-               "Leftbound: " + waitingLeft.toString() + "\n" +
-               "Rightbound: " + waitingRight.toString() + "\n" +
-               "Done: " + done.toString() + "\n";
-    }
-
-    public int getStationNumber() {
-        return stationNumber;
+        return "Station " + id + " has " + waiting.size() + " passengers waiting";
     }
 }
