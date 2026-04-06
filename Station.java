@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 
 public class Station {
     private int stationNumber;
@@ -6,49 +6,46 @@ public class Station {
     private ArrayList<Passenger> waitingRight;
     private ArrayList<Passenger> done;
 
-    public Station(int myStationNumber){
+    public Station(int myStationNumber) {
         stationNumber = myStationNumber;
-        waitingLeft = new ArrayList<Passenger>();
-        waitingRight = new ArrayList<Passenger>();
-        done = new ArrayList<Passenger>();
+        waitingLeft = new ArrayList<>();
+        waitingRight = new ArrayList<>();
+        done = new ArrayList<>();
     }
 
-    public void addPerson(Passenger p){
-        if(p.getDestination() == stationNumber){
+    public void addPerson(Passenger p) {
+        if (p.getDestination() == stationNumber) {
             done.add(p);
-        } else if (p.getDirection()){
+        } else if (p.getDirection()) {
             waitingRight.add(p);
         } else {
             waitingLeft.add(p);
         }
     }
 
-    public Passenger nextLeft(){
-        if(waitingLeft.size() > 0){
+    public Passenger nextLeft() {
+        if (!waitingLeft.isEmpty()) {
             return waitingLeft.remove(0);
-        } else {
-            return null;
         }
+        return null;
     }
 
-    public Passenger nextRight(){
-        if(waitingRight.size() > 0){
+    public Passenger nextRight() {
+        if (!waitingRight.isEmpty()) {
             return waitingRight.remove(0);
-        } else {
-            return null;
         }
+        return null;
     }
 
-    public int doneCount(){
+    public int doneCount() {
         return done.size();
     }
 
-    public String toString(){
-        String s = "Station: " + stationNumber + "\n";
-        s += "Leftbound: " + waitingLeft.toString() + "\n";
-        s += "Rightbound: " + waitingRight.toString() + "\n";
-        s += "Done: " + done.toString() + "\n";
-        return s;
+    public String toString() {
+        return "Station: " + stationNumber + "\n" +
+               "Leftbound: " + waitingLeft.toString() + "\n" +
+               "Rightbound: " + waitingRight.toString() + "\n" +
+               "Done: " + done.toString() + "\n";
     }
 
     public int getStationNumber() {

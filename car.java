@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
 public class Car {
-    
     private int location;
     private ArrayList<Passenger> people;
     private int initialStation;
@@ -10,40 +9,61 @@ public class Car {
     private boolean moveable;
     private int distanceTraveled;
 
-    
-    public Car(int startLocation) {
+    public Car(int startLocation, int destination) {
         this.initialStation = startLocation;
-        this.destination = startLocation; // no destination
+        this.destination = destination;
         this.location = startLocation;
         this.people = new ArrayList<>();
-        this.forward = true; // default
+        this.forward = destination > startLocation;
         this.moveable = true;
         this.distanceTraveled = 0;
     }
 
+    public Car(int startLocation) {
+        this(startLocation, startLocation);
+    }
+
     public void pickup(Passenger p) {
-        if (people.size() < 4) {
+        if (people.size() < 4 && p.getLocation() == location) {
             people.add(p);
         }
     }
 
-    public Passenger dropoff(int pos) {
-        if (pos >= 0 && pos < people.size()) {
-            return people.remove(pos);
+    public void dropoffAtCurrentLocation() {
+        ArrayList<Passenger> dropped = new ArrayList<>();
+        for (Passenger p : people) {
+            if (p.getDestination() == location) {
+                dropped.add(p);
+            }
         }
-        return null;
+        people.removeAll(dropped);
     }
 
-    public void remove(Passenger p) {
-        people.remove(p);
-    }
+    public void move() {
+        if (!moveable) return;
 
-    public boolean getDirection() {
-        return forward;
+        if (location < destination) {
+            location++;
+            forward = true;
+        } else if (location > destination) {
+            location--;
+            forward = false;
+        }
+        distanceTraveled++;
+
+        dropoffAtCurrentLocation();
     }
 
     public ArrayList<Passenger> getPeople() {
         return people;
+    }
+
+    public int getLocation() {
+        return location;
+    }
+
+    public boolean getDirection() {
+        return forward;
     }
 
     public boolean isMoveable() {
@@ -60,22 +80,6 @@ public class Car {
 
     public int getDestination() {
         return destination;
-    }
-
-    public int getLocation(){
-        return location;
-    }
-
-    public void moveRight(){
-        location++;
-        distanceTraveled++;
-        forward = true;
-    }
-
-    public void moveLeft(){
-        location--;
-        distanceTraveled++;
-        forward = false;
     }
 
     public String toString() {
