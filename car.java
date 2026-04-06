@@ -11,12 +11,12 @@ public class Car {
     private int distanceTraveled;
 
     
-    public Car(int startLocation, int destination) {
+    public Car(int startLocation) {
         this.initialStation = startLocation;
-        this.destination = destination;
+        this.destination = startLocation; // no destination
         this.location = startLocation;
         this.people = new ArrayList<>();
-        this.forward = destination > startLocation;
+        this.forward = true; // default
         this.moveable = true;
         this.distanceTraveled = 0;
     }
@@ -62,25 +62,25 @@ public class Car {
         return destination;
     }
 
-    public String toString() {
-        return "Initial station: " + initialStation + 
-               " Location: " + location + 
-               " Number of people: " + people.size();
-    }
-
-    public Car(int startLocation){
-        location = startLocation;
-    }
-
     public int getLocation(){
         return location;
     }
 
     public void moveRight(){
         location++;
+        distanceTraveled++;
+        forward = true;
     }
 
     public void moveLeft(){
         location--;
+        distanceTraveled++;
+        forward = false;
+    }
+
+    public String toString() {
+        return "Initial station: " + initialStation + 
+               " Location: " + location + 
+               " Number of people: " + people.size();
     }
 }
