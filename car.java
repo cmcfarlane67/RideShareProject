@@ -4,8 +4,10 @@ public class Car {
     private int location;
     private int destination;
     private ArrayList<Passenger> riders;
+    private int idNum;
 
-    public Car(int location, int destination) {
+    public Car(int idNum, int location, int destination) {
+        this.idNum = idNum;
         this.location = location;
         this.destination = destination;
         riders = new ArrayList<>();
@@ -62,6 +64,6 @@ public class Car {
     }
 
     public String toString() {
-        return "Car at " + location + " going to " + destination + " with " + riders.size() + " passengers";
+       return "Car ID " + idNum + " at " + location + " going to " + destination;
     }
 }
