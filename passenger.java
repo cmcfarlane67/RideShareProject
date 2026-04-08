@@ -2,8 +2,10 @@ public class Passenger {
     private int destination;
     private boolean completed;
     private boolean inCar;
+    private int idNum;
 
-    public Passenger(int destination) {
+    public Passenger(int idNum, int destination) {
+        this.idNum = idNum;
         this.destination = destination;
         completed = false;
         inCar = false;
@@ -37,6 +39,6 @@ public class Passenger {
     }
 
     public String toString() {
-        return "Passenger to " + destination;
+        return "Passenger ID " + idNum + " to " + destination;
     }
 }
