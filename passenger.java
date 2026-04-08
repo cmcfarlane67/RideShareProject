@@ -29,7 +29,8 @@ public class Passenger {
         completed = true;
         inCar = false;
     }
-
+    // Determines the direction the passenger wants to go based on current location
+    // Returns 1 for forward, -1 for backward
     public int getDirection(int currentLocation) {
         if (destination > currentLocation) return 1;
         else return -1;

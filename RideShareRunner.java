@@ -16,8 +16,6 @@ public class RideShareRunner {
 
         while (road.carsLeft()) {
             road.update();
-            // Optional: print each step
-            // System.out.println(road);
         }
 
         System.out.println(road.getCompleted() + " passengers made it to their destination.");
