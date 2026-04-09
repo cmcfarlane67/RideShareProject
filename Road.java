@@ -21,7 +21,7 @@ public class Road {
             int dest = (int)(Math.random() * 32); // random destination
             while (dest == start) dest = (int)(Math.random() * 32); // ensure destination != start
 
-            Passenger p = new Passenger(dest);
+            Passenger p = new Passenger(i, dest);
             stations[start].addPassenger(p);// add passenger to starting station
         }
     }
@@ -32,7 +32,7 @@ public class Road {
             int dest = (int)(Math.random() * 32);
             while (dest == start) dest = (int)(Math.random() * 32);
 
-            cars.add(new Car(start, dest));
+            cars.add(new Car(i, start, dest));
         }
     }
     // Check if any cars are still on the road
@@ -48,6 +48,17 @@ public class Road {
         // Pick up passengers at each car's location
         for (Car c : cars) {
             Station s = stations[c.getLocation()];
+            ArrayList<Passenger> done = new ArrayList<>();
+            for (Passenger p : c.getRiders()) {
+                if (p.getDestination() == c.getLocation()) {
+                    p.complete();
+                    done.add(p);
+                    completedPeople++;
+                }
+            }
+            for (Passenger p : done) {
+                c.removePassenger(p);
+            }
             ArrayList<Passenger> waitingCopy = new ArrayList<>(s.getWaitingPassengers());
             for (Passenger p : waitingCopy) {
                 if (c.canTakePassenger(p)) {
@@ -56,7 +67,7 @@ public class Road {
                 }
             }
         }
-
+        
         // Move cars
         for (Car c : cars) c.move();
 
@@ -64,13 +75,21 @@ public class Road {
         for (int i = cars.size() - 1; i >= 0; i--) {
             Car c = cars.get(i);
             if (c.isFinished()) {
-                completedPeople += c.unloadPassengers();
+                c.unloadPassengers(); // don't add again
                 cars.remove(i);
             }
         }
     }
 
     public String toString() {
-        return "Cars left: " + cars.size() + ", Completed passengers: " + completedPeople;
+        String result = "";
+        for (Station s : stations) {
+            result += "Station " + s.getId() + " waiting: " + s.getWaitingPassengers() + "\n";
+        }
+        for (Car c : cars) {
+            result += "Car at " + c.getLocation() + " to " + c.getDestination() + " passengers: " + c.getRiders() + "\n";
+        }
+        result += "Completed passengers: " + completedPeople;
+        return result;
     }
 }

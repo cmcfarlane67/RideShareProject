@@ -26,6 +26,10 @@ public class Car {
         else return -1;
     }
 
+    public ArrayList<Passenger> getRiders() {
+        return riders;
+    }
+
     public boolean isFinished() {
         return location == destination;
     }
@@ -47,6 +51,10 @@ public class Car {
 
     public void move() {
         if (!isFinished()) location += getDirection();
+    }
+
+    public void removePassenger(Passenger p) {
+    riders.remove(p);
     }
 
     public int unloadPassengers() {

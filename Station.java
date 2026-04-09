@@ -26,6 +26,6 @@ public class Station {
     }
 
     public String toString() {
-        return "Station " + id + " has " + waiting.size() + " passengers waiting";
+        return "Station " + id + " waiting passengers: " + waiting;
     }
 }
