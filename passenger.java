@@ -34,8 +34,11 @@ public class Passenger {
     // Determines the direction the passenger wants to go based on current location
     // Returns 1 for forward, -1 for backward
     public int getDirection(int currentLocation) {
-        if (destination > currentLocation) return 1;
-        else return -1;
+        if (destination > currentLocation){ return 1;
+        }
+        else if (destination < currentLocation){
+            return -1; 
+        } else return 0;
     }
 
     public String toString() {
