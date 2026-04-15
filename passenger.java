@@ -19,6 +19,10 @@ public class Passenger {
         return completed;
     }
 
+    public boolean hasArrived() {
+        return completed;
+    }
+    
     public boolean isInCar() {
         return inCar;
     }

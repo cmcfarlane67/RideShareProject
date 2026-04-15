@@ -38,6 +38,14 @@ public class Car {
         return riders.size() < 3;
     }
 
+    public boolean getDone() {
+        return isFinished();
+    }
+
+    public int getloc() {
+        return location;
+    }
+
     public boolean canTakePassenger(Passenger p) {
         return hasSpace() && getDirection() == p.getDirection(location);
     }
@@ -57,18 +65,44 @@ public class Car {
     riders.remove(p);
     }
 
-    public int unloadPassengers() {
+    public int unloadPassengers(){
         int count = 0;
+        ArrayList<Passenger> toRemove = new ArrayList<>();
         for (Passenger p : riders) {
             if (location == p.getDestination()) {
                 p.complete();
+                toRemove.add(p);
                 count++;
-            } else {
-                p.setInCar(false);
             }
         }
-        riders.clear();
+        for (Passenger p : toRemove) {
+            riders.remove(p);
+        }
+
         return count;
+    }
+    
+    public void pickUpPassengers(Station s){
+        ArrayList<Passenger> waiting = new ArrayList<>(s.getWaitingPassengers());
+        for (Passenger p : waiting) {
+            if (canTakePassenger(p)) {
+                addPassenger(p);
+                s.removePassenger(p);
+            }
+        }
+    }
+
+    public void dropOffPassengers(ArrayList<Station> stations){
+        ArrayList<Passenger> toRemove = new ArrayList<>();
+        for (Passenger p : riders) {
+            if (location == p.getDestination()){
+                p.complete();
+                toRemove.add(p);
+            }
+        }
+        for (Passenger p : toRemove) {
+            riders.remove(p);
+        }
     }
 
     public String toString() {
