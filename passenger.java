@@ -18,11 +18,14 @@ public class Passenger {
     public boolean isCompleted() {
         return completed;
     }
+    public int getId(){
+        return idNum;
+    }
 
     public boolean hasArrived() {
         return completed;
     }
-    
+
     public boolean isInCar() {
         return inCar;
     }

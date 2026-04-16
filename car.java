@@ -16,7 +16,10 @@ public class Car {
     public int getLocation() {
         return location;
     }
-
+    
+    public int getId(){
+        return idNum;
+    }
     public int getDestination(){
         return destination;
     }
